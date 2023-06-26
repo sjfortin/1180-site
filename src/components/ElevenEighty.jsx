@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
-import { create } from "d3";
+import { useEffect, useRef, useState } from "react";
 import useWindowSize from "../hooks/useWindowSize";
+import { colors } from "../lib/colors";
 
 const ElevenEighty = () => {
-  const [svgString, setSvgString] = useState("");
+  const canvasRef = useRef(null);
   const [imageNumber, setImageNumber] = useState(1);
+  const [colorPalette, setColorPalette] = useState(
+    colors[Math.floor(Math.random() * colors.length)].colors
+  );
   const windowSize = useWindowSize();
 
   useEffect(() => {
-    const svg = create("svg");
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
 
     const width = window.innerWidth * 0.8;
     const height = window.innerHeight * 0.8;
 
-    svg.attr("width", width);
-    svg.attr("height", height);
+    canvas.width = width;
+    canvas.height = height;
 
     const center = {
       x: width / 2,
@@ -24,25 +28,15 @@ const ElevenEighty = () => {
     // circle
     const radius = Math.min(width, height) / 2;
 
-    svg
-      .selectAll("circle")
-      .data([
-        {
-          cx: center.x,
-          cy: center.y,
-          r: radius,
-        },
-      ])
-      .enter()
-      .append("circle")
-      .attr("cx", (c) => c.cx)
-      .attr("cy", (c) => c.cy)
-      .attr("r", (c) => c.r)
-      .attr("fill", "white");
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, radius, 0, Math.PI * 2, true);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.closePath();
 
     // straight lines
     const slines = [];
-    for (var i = 0; i < 1000; ++i) {
+    for (var i = 0; i < 10000; ++i) {
       const dir = Math.random() * (2 * Math.PI);
 
       let x = 1,
@@ -62,16 +56,18 @@ const ElevenEighty = () => {
       });
     }
 
-    svg
-      .selectAll("line")
-      .data(slines)
-      .enter()
-      .append("line")
-      .attr("x1", (line) => center.x + line.x)
-      .attr("y1", (line) => center.y + line.y)
-      .attr("x2", (line) => center.x + line.x + 3 * Math.cos(line.dir))
-      .attr("y2", (line) => center.y + line.y + 3 * Math.sin(line.dir))
-      .attr("stroke", "#282828");
+    slines.forEach((line) => {
+      ctx.beginPath();
+      ctx.moveTo(center.x + line.x, center.y + line.y);
+      ctx.lineTo(
+        center.x + line.x + 3 * Math.cos(line.dir),
+        center.y + line.y + 3 * Math.sin(line.dir)
+      );
+      ctx.strokeStyle =
+        colorPalette[Math.floor(Math.random() * colorPalette.length)];
+      ctx.stroke();
+      ctx.closePath();
+    });
 
     // non straight lines
     const nslines = [];
@@ -95,32 +91,40 @@ const ElevenEighty = () => {
       });
     }
 
-    svg
-      .selectAll("path")
-      .data(nslines)
-      .enter()
-      .append("path")
-      .attr("d", (line) => {
-        let commands = [
-          "M " + (center.x + line.x) + "," + (center.y + line.y),
-          Math.random() > 0.5 ? "l 0,3" : "l 3,0",
-          Math.random() > 0.5 ? "l 0,3" : "l 3,0",
-        ];
+    nslines.forEach((line) => {
+      ctx.beginPath();
+      ctx.moveTo(center.x + line.x, center.y + line.y);
 
-        return commands.join("\n");
-      })
-      .attr("fill", "none")
-      .attr("stroke", "#282828");
+      if (Math.random() > 0.5) {
+        ctx.lineTo(center.x + line.x, center.y + line.y + 8);
+      } else {
+        ctx.lineTo(center.x + line.x + 8, center.y + line.y);
+      }
 
-    setSvgString(svg.node().outerHTML);
+      if (Math.random() > 0.5) {
+        ctx.lineTo(center.x + line.x, center.y + line.y + 8);
+      } else {
+        ctx.lineTo(center.x + line.x + 8, center.y + line.y);
+      }
+
+      ctx.strokeStyle =
+        colorPalette[Math.floor(Math.random() * colorPalette.length)];
+      ctx.stroke();
+      ctx.closePath();
+    });
+  }, [windowSize, imageNumber, colorPalette]);
+
+  useEffect(() => {
+    setColorPalette(colors[Math.floor(Math.random() * colors.length)].colors);
   }, [windowSize, imageNumber]);
 
   return (
     <div
       onClick={() => setImageNumber(imageNumber + 1)}
       className="flex justify-center"
-      dangerouslySetInnerHTML={{ __html: svgString }}
-    />
+    >
+      <canvas ref={canvasRef} />
+    </div>
   );
 };
 
