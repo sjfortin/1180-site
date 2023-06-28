@@ -68,7 +68,7 @@ const Circle = () => {
     <>
       <div className="text-center">
         <button
-          className="justify-center tracking-widest text-2xl text-gray-400 hover:text-gray-900"
+          className="justify-center tracking-widest text-2xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900"
           onClick={addCanvas}
         >
           circle
