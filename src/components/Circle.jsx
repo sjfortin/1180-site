@@ -1,11 +1,9 @@
 import { useEffect, useState, createRef } from "react";
-import useWindowSize from "../hooks/useWindowSize";
 import { colors } from "../lib/colors";
 import { createLines, drawLines, drawNonStraightLines } from "../lib/lines";
 
 const Circle = () => {
   const [canvasRefs, setCanvasRefs] = useState([createRef()]);
-  const windowSize = useWindowSize();
 
   useEffect(() => {
     canvasRefs.forEach((canvasRef) => {
@@ -58,7 +56,7 @@ const Circle = () => {
         colors[Math.floor(Math.random() * colors.length)].colors
       );
     });
-  }, [windowSize, canvasRefs]);
+  }, [canvasRefs]);
 
   const addCanvas = () => {
     setCanvasRefs((refs) => [...refs, createRef()]);
@@ -68,7 +66,7 @@ const Circle = () => {
     <>
       <div className="text-center">
         <button
-          className="justify-center tracking-widest text-2xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900"
+          className="justify-center tracking-widest md:text-6xl text-4xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
           onClick={addCanvas}
         >
           circle

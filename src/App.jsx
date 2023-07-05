@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <div className="">
-        <h1 className="px-4 mt-5 mb-2 text-4xl flex justify-center tracking-widest">
+        <h1 className="px-4 mt-5 mb-2 text-4xl md:text-6xl flex justify-center tracking-widest">
           Sam Fortin
         </h1>
         <div className="flex justify-center mb-5">
