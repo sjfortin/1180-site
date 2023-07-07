@@ -1,4 +1,4 @@
-export const colors = [
+export const colorPalletes = [
   {
     name: "basquiat black king catch",
     colors: ["#F08838", "#F6A7B8", "#F1EC7A", "#1D4D9F", "#F08838"],

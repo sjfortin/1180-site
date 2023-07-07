@@ -34,7 +34,7 @@ export function drawLines(lines, center, ctx, colorPalette) {
       center.x + line.x + 3 * Math.cos(line.dir),
       center.y + line.y + 3 * Math.sin(line.dir)
     );
-    ctx.strokeStyle = colorPalette;
+    ctx.strokeStyle = colorPalette[Math.floor(Math.random() * colorPalette.length)];
     ctx.stroke();
     ctx.closePath();
   });

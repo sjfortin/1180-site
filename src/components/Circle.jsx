@@ -1,5 +1,5 @@
 import { useEffect, useState, createRef } from "react";
-import { colors } from "../lib/colors";
+import { colorPalletes } from "../lib/colorPalletes";
 import { createLines, drawLines, drawNonStraightLines } from "../lib/lines";
 
 const Circle = () => {
@@ -38,22 +38,22 @@ const Circle = () => {
       ctx.closePath();
 
       // Draw the straight lines.
-      const straightLines = createLines(10000, radius);
+      const straightLines = createLines(3333, radius);
       drawLines(
         straightLines,
         center,
         ctx,
-        colors[Math.floor(Math.random() * colors.length)].colors
+        colorPalletes[Math.floor(Math.random() * colorPalletes.length)].colors
       );
 
       // Draw the non-straight lines.
-      const nonStraightLines = createLines(10000, radius);
+      const nonStraightLines = createLines(3333, radius);
 
       drawNonStraightLines(
         nonStraightLines,
         center,
         ctx,
-        colors[Math.floor(Math.random() * colors.length)].colors
+        colorPalletes[Math.floor(Math.random() * colorPalletes.length)].colors
       );
     });
   }, [canvasRefs]);
@@ -66,10 +66,10 @@ const Circle = () => {
     <>
       <div className="text-center">
         <button
-          className="justify-center tracking-widest md:text-6xl text-4xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
+          className="justify-center tracking-widest text-xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
           onClick={addCanvas}
         >
-          circle
+          {canvasRefs.length > 1 ? "circles" : "circle"}
         </button>
       </div>
       <div className="my-6 flex justify-center items-center flex-wrap">
