@@ -36,7 +36,7 @@ function App() {
         </div>
         <div className="flex justify-center mb-3">
           <button
-            className="justify-center tracking-widest text-xs text-gray-400 hover:text-gray-900 px-2 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
+            className="justify-center tracking-widest text-xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
             onClick={handleArtChange}
           >
             shape change

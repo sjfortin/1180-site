@@ -21,7 +21,6 @@ const Rectangles = () => {
     // ctx.strokeStyle = "#000";
     let pallette =
       colorPalletes[Math.floor(Math.random() * colorPalletes.length)].colors;
-    console.log(pallette);
     ctx.strokeStyle = pallette[Math.floor(Math.random() * pallette.length)];
 
     ctx.lineWidth = 2;
