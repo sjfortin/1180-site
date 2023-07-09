@@ -18,9 +18,8 @@ const Rectangles = () => {
     ctx.canvas.width = width;
     ctx.canvas.height = height;
 
-    let pallette = colorPalletes.filter(
-      (pallette) => pallette.name === "all basquiat"
-    )[0].colors;
+    let pallette =
+      colorPalletes[Math.floor(Math.random() * colorPalletes.length)].colors;
 
     ctx.lineWidth = 2;
     ctx.fillStyle = "#fff";
