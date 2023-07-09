@@ -154,6 +154,7 @@ function Waves() {
 
         context.lineTo(pointCacheX[index], pointCacheY[index]);
       }
+      
       context.stroke();
 
       sequence++;
@@ -185,7 +186,7 @@ function Waves() {
           waves
         </button>
       </div>
-      <div className="my-6 flex justify-center items-center flex-wrap">
+      <div className="my-6 flex justify-center items-center flex-wrap h-screen">
         <canvas ref={canvasRef} style={{ width: "100%", height: "100%" }} />
       </div>
     </>
