@@ -18,10 +18,9 @@ const Rectangles = () => {
     ctx.canvas.width = width;
     ctx.canvas.height = height;
 
-    // ctx.strokeStyle = "#000";
-    let pallette =
-      colorPalletes[Math.floor(Math.random() * colorPalletes.length)].colors;
-    ctx.strokeStyle = pallette[Math.floor(Math.random() * pallette.length)];
+    let pallette = colorPalletes.filter(
+      (pallette) => pallette.name === "all basquiat"
+    )[0].colors;
 
     ctx.lineWidth = 2;
     ctx.fillStyle = "#fff";
@@ -29,9 +28,10 @@ const Rectangles = () => {
     for (var i = 0; i < 1000; i++) {
       const startx = rand(-100, width + 100);
       const starty = rand(-100, height + 100);
-      const rec_width = rand(width * 0.1, width * 0.2);
-      const rec_height = rand(height * 0.1, width * 0.2);
+      const rec_width = rand(width * 0.1, width * 0.025);
+      const rec_height = rand(height * 0.1, width * 0.025);
 
+      ctx.strokeStyle = pallette[Math.floor(Math.random() * pallette.length)];
       ctx.beginPath();
       ctx.fillRect(startx, starty, rec_width, rec_height);
 
@@ -68,7 +68,6 @@ const Rectangles = () => {
         <canvas ref={canvasRef}></canvas>
       </div>
     </>
-    
   );
 };
 
