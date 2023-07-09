@@ -2,23 +2,24 @@ import { useEffect, useState } from "react";
 import { inject } from "@vercel/analytics";
 import Circle from "./components/Circle";
 import Rectangles from "./components/Rectangles";
+import Waves from "./components/Waves";
+
+const artStyles = ["rectangles", "circle", "waves"];
 
 function App() {
   inject();
 
-  const [artStyle, setArtStyle] = useState("");
+  const [artStyle, setArtStyle] = useState(
+    artStyles[Math.floor(Math.random() * artStyles.length)]
+  );
 
   const handleArtChange = () => {
-    if (artStyle === "rectangles") {
-      setArtStyle("circle");
-    } else {
-      setArtStyle("rectangles");
-    }
+    let newArtStyle;
+    do {
+      newArtStyle = artStyles[Math.floor(Math.random() * artStyles.length)];
+    } while (newArtStyle === artStyle);
+    setArtStyle(newArtStyle);
   };
-
-  useEffect(() => {
-    setArtStyle("rectangles");
-  }, []);
 
   return (
     <>
@@ -43,7 +44,13 @@ function App() {
           </button>
         </div>
       </div>
-      {artStyle === "rectangles" ? <Rectangles /> : <Circle />}
+      {artStyle === "rectangles" ? (
+        <Rectangles />
+      ) : artStyle === "circle" ? (
+        <Circle />
+      ) : (
+        <Waves />
+      )}
     </>
   );
 }
