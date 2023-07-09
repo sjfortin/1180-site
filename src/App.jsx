@@ -3,8 +3,9 @@ import { inject } from "@vercel/analytics";
 import Circle from "./components/Circle";
 import Rectangles from "./components/Rectangles";
 import Waves from "./components/Waves";
+import Lines from "./components/Lines";
 
-const artStyles = ["rectangles", "circle", "waves"];
+const artStyles = ["rectangles", "circle", "waves", "lines"];
 
 function App() {
   inject();
@@ -48,6 +49,8 @@ function App() {
         <Rectangles />
       ) : artStyle === "circle" ? (
         <Circle />
+      ) : artStyle === "lines" ? (
+        <Lines />
       ) : (
         <Waves />
       )}
