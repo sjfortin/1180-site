@@ -154,7 +154,7 @@ function Waves() {
 
         context.lineTo(pointCacheX[index], pointCacheY[index]);
       }
-      
+
       context.stroke();
 
       sequence++;
@@ -170,11 +170,10 @@ function Waves() {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup function to remove event listener on unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []); // Empty array makes this effect run only on mount and unmount
+  }, []); 
 
   return (
     <>

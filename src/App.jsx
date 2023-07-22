@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { inject } from "@vercel/analytics";
 import Circle from "./components/Circle";
 import Rectangles from "./components/Rectangles";
 import Waves from "./components/Waves";
 import Lines from "./components/Lines";
+import Flow from "./components/Flow";
 
-const artStyles = ["rectangles", "circle", "waves", "lines"];
+const artStyles = ["rectangles", "circle", "waves", "lines", "flow"];
 
 function App() {
   inject();
@@ -49,6 +50,8 @@ function App() {
         <Rectangles />
       ) : artStyle === "circle" ? (
         <Circle />
+      ) : artStyle === "flow" ? (
+        <Flow />
       ) : artStyle === "lines" ? (
         <Lines />
       ) : (
