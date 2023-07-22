@@ -31,8 +31,8 @@ export function drawLines(lines, center, ctx, colorPalette) {
     ctx.beginPath();
     ctx.moveTo(center.x + line.x, center.y + line.y);
     ctx.lineTo(
-      center.x + line.x + 3 * Math.cos(line.dir),
-      center.y + line.y + 3 * Math.sin(line.dir)
+      center.x + line.x + 10 * Math.cos(line.dir),
+      center.y + line.y + 10 * Math.sin(line.dir)
     );
     ctx.strokeStyle = colorPalette[Math.floor(Math.random() * colorPalette.length)];
     ctx.stroke();
