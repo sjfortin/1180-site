@@ -5,8 +5,16 @@ import Rectangles from "./components/Rectangles";
 import Waves from "./components/Waves";
 import Lines from "./components/Lines";
 import Flow from "./components/Flow";
+import TreeRing from "./components/TreeRing";
 
-const artStyles = ["rectangles", "circle", "waves", "lines", "flow"];
+const artStyles = [
+  "rectangles",
+  "circle",
+  "waves",
+  "lines",
+  "flow",
+  "treering",
+];
 
 function App() {
   inject();
@@ -52,6 +60,8 @@ function App() {
         <Circle />
       ) : artStyle === "flow" ? (
         <Flow />
+      ) : artStyle === "treering" ? (
+        <TreeRing />
       ) : artStyle === "lines" ? (
         <Lines />
       ) : (

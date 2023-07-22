@@ -6,10 +6,10 @@ const Flow = () => {
   const [sketchCount, setSketchCount] = useState(0);
 
   const sketch = (p5) => {
-    let inc = 0.01;
-    let scl = 10;
+    let inc = p5.random(0.01, 0.09);
+    let scl = p5.random(5, 15);
     let cols, rows;
-    let zoff = 0;
+    let zoff = p5.random(1, 5);
     let fr;
     let flowfield;
 
@@ -17,7 +17,7 @@ const Flow = () => {
       colorPalletes[Math.floor(Math.random() * colorPalletes.length)].colors;
 
     p5.setup = () => {
-      p5.createCanvas(900, 500);
+      p5.createCanvas(900, 400);
       cols = p5.floor(p5.width / scl);
       rows = p5.floor(p5.height / scl);
       fr = p5.createP("");
@@ -37,6 +37,7 @@ const Flow = () => {
           flowfield[index] = v;
           xoff += inc;
           p5.stroke(pallette[Math.floor(Math.random() * pallette.length)]);
+          p5.strokeWeight(p5.random(1,2));
           p5.push();
           p5.translate(x * scl, y * scl);
           p5.rotate(v.heading());
@@ -44,8 +45,9 @@ const Flow = () => {
           p5.pop();
         }
         yoff += inc;
-        zoff += 0.0009;
+        zoff += 0.0002;
       }
+      p5.noLoop();
     };
   };
 
