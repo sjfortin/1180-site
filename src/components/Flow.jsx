@@ -1,11 +1,20 @@
 import { useState } from "react";
 import { ReactP5Wrapper } from "@p5-wrapper/react";
 import { colorPalletes } from "../lib/colorPalletes";
+import ShapeButton from "./ShapeButton";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const Flow = () => {
   const [sketchCount, setSketchCount] = useState(0);
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const isMediumDevice = useMediaQuery(
+    "only screen and (min-width : 769px) and (max-width : 992px)"
+  );
 
   const sketch = (p5) => {
+    const width = isSmallDevice ? 350 : isMediumDevice ? 600 : 900;
+    const height = isSmallDevice ? 500 : isMediumDevice ? 300 : 400;
+
     let inc = p5.random(0.01, 0.09);
     let scl = p5.random(5, 15);
     let cols, rows;
@@ -17,7 +26,7 @@ const Flow = () => {
       colorPalletes[Math.floor(Math.random() * colorPalletes.length)].colors;
 
     p5.setup = () => {
-      p5.createCanvas(900, 400);
+      p5.createCanvas(width, height);
       cols = p5.floor(p5.width / scl);
       rows = p5.floor(p5.height / scl);
       fr = p5.createP("");
@@ -37,7 +46,7 @@ const Flow = () => {
           flowfield[index] = v;
           xoff += inc;
           p5.stroke(pallette[Math.floor(Math.random() * pallette.length)]);
-          p5.strokeWeight(p5.random(1,2));
+          p5.strokeWeight(p5.random(1, 2));
           p5.push();
           p5.translate(x * scl, y * scl);
           p5.rotate(v.heading());
@@ -54,12 +63,10 @@ const Flow = () => {
   return (
     <>
       <div className="text-center">
-        <button
-          className="justify-center tracking-widest text-xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
-          onClick={() => setSketchCount(sketchCount + 1)}
-        >
-          flow
-        </button>
+        <ShapeButton
+          shapeName={"flow"}
+          handleClick={() => setSketchCount(sketchCount + 1)}
+        />
       </div>
       <div className="my-6 flex justify-center items-center flex-wrap">
         <ReactP5Wrapper sketch={sketch} />

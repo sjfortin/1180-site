@@ -15,7 +15,7 @@ const Rectangles = () => {
 
   const draw = () => {
     const width = isSmallDevice ? 350 : isMediumDevice ? 600 : 900;
-    const height = 400;
+    const height = isSmallDevice ? 500 : isMediumDevice ? 300 : 400;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");

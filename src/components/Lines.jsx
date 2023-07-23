@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { colorPalletes } from "../lib/colorPalletes";
+import ShapeButton from "./ShapeButton";
 
 function Lines() {
   const canvasRef = useRef(null);
@@ -49,12 +50,7 @@ function Lines() {
   return (
     <>
       <div className="text-center">
-        <button
-          className="justify-center tracking-widest text-xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
-          onClick={drawLines}
-        >
-          lines
-        </button>
+        <ShapeButton shapeName={"lines"} handleClick={drawLines} />
       </div>
       <div className="my-6 flex justify-center items-center flex-wrap">
         <canvas ref={canvasRef} />

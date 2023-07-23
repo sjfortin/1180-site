@@ -3,6 +3,8 @@
 // http://cs.nyu.edu/~perlin/noise/
 // http://jsfiddle.net/aVSX7/light/
 import { useEffect, useRef } from "react";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import ShapeButton from "./ShapeButton";
 
 const PerlinNoise = new (function () {
   this.noise = function (x, y, z) {
@@ -102,22 +104,28 @@ const PerlinNoise = new (function () {
 
 function Waves() {
   const canvasRef = useRef(null);
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const isMediumDevice = useMediaQuery(
+    "only screen and (min-width : 769px) and (max-width : 992px)"
+  );
 
   const waveChange = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    context.canvas.width = 900;
-    context.canvas.height = 400;
+    const width = isSmallDevice ? 350 : isMediumDevice ? 600 : 900;
+    const height = isSmallDevice ? 500 : isMediumDevice ? 300 : 400;
+    context.canvas.width = width;
+    context.canvas.height = height;
 
-    context.clearRect(0, 0, 900, 400);
+    context.clearRect(0, 0, width, height);
 
     context.lineWidth = 4;
     var marginX = 40;
     var marginY = 40;
     var stepX = 4;
     var stepY = 8;
-    var maxX = (900 - 2 * marginX) / stepX;
-    var maxY = (400 - 2 * marginY) / stepY;
+    var maxX = (width - 2 * marginX) / stepX;
+    var maxY = (height - 2 * marginY) / stepY;
     var colors = ["#1A6DED", "#2C7CE6", "#145CBF"];
 
     var noise;
@@ -163,27 +171,12 @@ function Waves() {
 
   useEffect(() => {
     waveChange();
-
-    const handleResize = () => {
-      waveChange();
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []); 
+  }, []);
 
   return (
     <>
       <div className="text-center">
-        <button
-          className="justify-center tracking-widest text-xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
-          onClick={waveChange}
-        >
-          waves
-        </button>
+        <ShapeButton shapeName={"waves"} handleClick={waveChange} />
       </div>
       <div className="my-6 flex justify-center items-center flex-wrap">
         <canvas ref={canvasRef} />

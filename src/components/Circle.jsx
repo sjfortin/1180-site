@@ -1,16 +1,19 @@
 import { useEffect, useState, createRef } from "react";
 import { colorPalletes } from "../lib/colorPalletes";
 import { createLines, drawLines, drawNonStraightLines } from "../lib/lines";
+import ShapeButton from "./ShapeButton";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const Circle = () => {
   const [canvasRef, setCanvasRef] = useState(createRef());
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    let min = 400;
-    let max = 400;
+    let min = isSmallDevice ? 350 : 500;
+    let max = isSmallDevice ? 350 : 500;
     let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
 
     const width = randomNum;
@@ -62,12 +65,7 @@ const Circle = () => {
   return (
     <>
       <div className="text-center">
-        <button
-          className="justify-center tracking-widest text-xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
-          onClick={addCanvas}
-        >
-          circle
-        </button>
+        <ShapeButton shapeName={"circle"} handleClick={addCanvas} />
       </div>
       <div className="my-6 flex justify-center items-center flex-wrap">
         <canvas ref={canvasRef} />

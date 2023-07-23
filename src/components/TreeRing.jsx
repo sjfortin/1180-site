@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { ReactP5Wrapper } from "@p5-wrapper/react";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import ShapeButton from "./ShapeButton";
 
 const TreeRing = () => {
   const [sketchCount, setSketchCount] = useState(0);
@@ -27,7 +28,6 @@ const TreeRing = () => {
     let numPoints = 500;
 
     let radius = width / 2 - 30;
-    console.log(radius);
     let numRings = p5.random(5, 100);
 
     p5.draw = () => {
@@ -66,12 +66,10 @@ const TreeRing = () => {
   return (
     <>
       <div className="text-center">
-        <button
-          className="justify-center tracking-widest text-xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
-          onClick={() => setSketchCount(sketchCount + 1)}
-        >
-          tree ring
-        </button>
+        <ShapeButton
+          shapeName={"tree ring"}
+          handleClick={() => setSketchCount(sketchCount + 1)}
+        />
       </div>
       <div className="my-6 flex justify-center items-center flex-wrap">
         <ReactP5Wrapper sketch={sketch} />
