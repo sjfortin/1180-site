@@ -119,3 +119,7 @@ export const colorPalletes = [
     colors: ["#1A6DED", "#2C7CE6", "#145CBF", "#162B3D", "#F9ECE4"],
   },
 ];
+
+export const getRandomPalette = () => {
+  return colorPalletes[Math.floor(Math.random() * colorPalletes.length)].colors;
+};

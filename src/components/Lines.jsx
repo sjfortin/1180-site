@@ -13,8 +13,8 @@ function Lines() {
     );
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    context.canvas.width = window.innerWidth;
-    context.canvas.height = window.innerHeight;
+    context.canvas.width = 900;
+    context.canvas.height = 400;
 
     context.clearRect(0, 0, canvas.width, canvas.height);
 

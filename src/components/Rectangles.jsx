@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { colorPalletes } from "../lib/colorPalletes";
+import { getRandomPalette } from "../lib/colorPalletes";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 function rand(min, max) {
   return Math.floor(Math.random() * (max + 1 - min) + min);
@@ -7,10 +8,14 @@ function rand(min, max) {
 
 const Rectangles = () => {
   const canvasRef = useRef(null);
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const isMediumDevice = useMediaQuery(
+    "only screen and (min-width : 769px) and (max-width : 992px)"
+  );
 
   const draw = () => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width = isSmallDevice ? 350 : isMediumDevice ? 600 : 900;
+    const height = 400;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -18,8 +23,7 @@ const Rectangles = () => {
     ctx.canvas.width = width;
     ctx.canvas.height = height;
 
-    let pallette =
-      colorPalletes[Math.floor(Math.random() * colorPalletes.length)].colors;
+    let pallette = getRandomPalette();
 
     ctx.lineWidth = 2;
     ctx.fillStyle = "#fff";

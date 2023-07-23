@@ -106,18 +106,18 @@ function Waves() {
   const waveChange = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    context.canvas.width = context.canvas.clientWidth;
-    context.canvas.height = context.canvas.clientHeight;
+    context.canvas.width = 900;
+    context.canvas.height = 400;
 
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, 900, 400);
 
     context.lineWidth = 4;
     var marginX = 40;
     var marginY = 40;
     var stepX = 4;
     var stepY = 8;
-    var maxX = (context.canvas.clientWidth - 2 * marginX) / stepX;
-    var maxY = (context.canvas.clientHeight - 2 * marginY) / stepY;
+    var maxX = (900 - 2 * marginX) / stepX;
+    var maxY = (400 - 2 * marginY) / stepY;
     var colors = ["#1A6DED", "#2C7CE6", "#145CBF"];
 
     var noise;
@@ -185,8 +185,8 @@ function Waves() {
           waves
         </button>
       </div>
-      <div className="my-6 flex justify-center items-center flex-wrap h-screen">
-        <canvas ref={canvasRef} style={{ width: "100%", height: "100%" }} />
+      <div className="my-6 flex justify-center items-center flex-wrap">
+        <canvas ref={canvasRef} />
       </div>
     </>
   );

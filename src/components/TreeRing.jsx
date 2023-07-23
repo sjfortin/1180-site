@@ -1,25 +1,34 @@
 // https://www.gorillasun.de/blog/radial-perlin-noise-and-generative-tree-rings/
 import { useState } from "react";
 import { ReactP5Wrapper } from "@p5-wrapper/react";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const TreeRing = () => {
   const [sketchCount, setSketchCount] = useState(0);
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const isMediumDevice = useMediaQuery(
+    "only screen and (min-width : 769px) and (max-width : 992px)"
+  );
 
   const sketch = (p5) => {
+    const width = isSmallDevice ? 300 : isMediumDevice ? 400 : 500;
+    const height = isSmallDevice ? 300 : isMediumDevice ? 400 : 500;
+
     p5.setup = () => {
-      p5.createCanvas(500, 500);
+      p5.createCanvas(width, height);
       p5.background(255);
       p5.stroke(20);
       p5.strokeWeight(1);
       p5.noFill();
     };
 
-    let scale = p5.random(10, 90);
+    let scale = p5.random(10, 100);
     let resolution = 0.002;
     let numPoints = 500;
 
-    let radius = 200;
-    let numRings = p5.random(5, 40);
+    let radius = width / 2 - 30;
+    console.log(radius);
+    let numRings = p5.random(5, 100);
 
     p5.draw = () => {
       for (var r = 0; r < radius; r += radius / numRings) {
