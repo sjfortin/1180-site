@@ -37,7 +37,13 @@ function App() {
         <h1 className="px-4 mt-5 text-4xl md:text-6xl flex justify-center tracking-widest">
           Sam Fortin
         </h1>
-        <div className="flex justify-center my-3">
+        <div className="flex gap-3 justify-center my-3">
+          <a
+            className="text-gray-400 text-sm hover:text-gray-900"
+            href="https://samfortin.vercel.app/"
+          >
+            samfortin
+          </a>
           <a
             className="text-gray-400 text-sm hover:text-gray-900"
             href="https://linktr.ee/sam.fortin"
