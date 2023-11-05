@@ -40,9 +40,9 @@ function App() {
         <div className="flex gap-3 justify-center my-3">
           <a
             className="text-gray-400 text-sm hover:text-gray-900"
-            href="https://samfortin.vercel.app/"
+            href="https://samfort.in/"
           >
-            samfortin
+            samfort.in
           </a>
           <a
             className="text-gray-400 text-sm hover:text-gray-900"
