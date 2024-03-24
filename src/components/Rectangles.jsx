@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { getRandomPalette } from "../lib/colorPalletes";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import ShapeButton from "./ShapeButton";
 
 function rand(min, max) {
   return Math.floor(Math.random() * (max + 1 - min) + min);
@@ -60,12 +61,10 @@ const Rectangles = () => {
   return (
     <>
       <div className="text-center">
-        <button
-          className="justify-center tracking-widest text-xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
-          onClick={draw}
-        >
-          rectangles
-        </button>
+        <ShapeButton
+          shapeName={"rectangles"}
+          handleClick={() => draw()}
+        />
       </div>
       <div className="my-6 flex justify-center items-center flex-wrap">
         <canvas ref={canvasRef}></canvas>

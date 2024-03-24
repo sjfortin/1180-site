@@ -6,30 +6,45 @@ import Waves from "./components/Waves";
 import Lines from "./components/Lines";
 import Flow from "./components/Flow";
 import TreeRing from "./components/TreeRing";
+import WaterColor from "./components/WaterColor";
 
 const artStyles = [
-  "rectangles",
-  "circle",
-  "waves",
-  "lines",
-  "flow",
-  "treering",
+  {
+    style: "watercolor",
+    name: "watercolor",
+  },
+  {
+    style: "rectangles",
+    name: "rectangles",
+  },
+  {
+    style: "circle",
+    name: "circle",
+  },
+  {
+    style: "waves",
+    name: "waves",
+  },
+  {
+    style: "lines",
+    name: "lines",
+  },
+  {
+    style: "flow",
+    name: "flow",
+  },
+  {
+    style: "treering",
+    name: "tree ring",
+  },
 ];
 
 function App() {
   inject();
 
-  const [artStyle, setArtStyle] = useState(
-    artStyles[Math.floor(Math.random() * artStyles.length)]
+  const [selectedArtStyle, setSelectedArtStyle] = useState(
+    artStyles.filter((artStyle) => artStyle.style === "watercolor")[0].style
   );
-
-  const handleArtChange = () => {
-    let newArtStyle;
-    do {
-      newArtStyle = artStyles[Math.floor(Math.random() * artStyles.length)];
-    } while (newArtStyle === artStyle);
-    setArtStyle(newArtStyle);
-  };
 
   return (
     <>
@@ -51,24 +66,35 @@ function App() {
             linktr.ee
           </a>
         </div>
-        <div className="flex justify-center mb-3">
-          <button
-            className="justify-center tracking-widest text-xl text-gray-400 hover:text-gray-900 px-4 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text"
-            onClick={handleArtChange}
-          >
-            shape change
-          </button>
-        </div>
       </div>
-      {artStyle === "rectangles" ? (
+      <ul className="flex gap-4 justify-center mb-7 flex-wrap">
+        {artStyles.map((artStyle) => (
+          <li key={artStyle.style}>
+            <button
+              className={`justify-center tracking-widest text-gray-400 hover:text-gray-900 px-2 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text ${
+                artStyle.style === selectedArtStyle
+                  ? "border-gray-900 text-gray-900"
+                  : ""
+              }`}
+              onClick={() => setSelectedArtStyle(artStyle.style)}
+            >
+              {artStyle.name}
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {selectedArtStyle === "rectangles" ? (
         <Rectangles />
-      ) : artStyle === "circle" ? (
+      ) : selectedArtStyle === "circle" ? (
         <Circle />
-      ) : artStyle === "flow" ? (
+      ) : selectedArtStyle === "watercolor" ? (
+        <WaterColor />
+      ) : selectedArtStyle === "flow" ? (
         <Flow />
-      ) : artStyle === "treering" ? (
+      ) : selectedArtStyle === "treering" ? (
         <TreeRing />
-      ) : artStyle === "lines" ? (
+      ) : selectedArtStyle === "lines" ? (
         <Lines />
       ) : (
         <Waves />
