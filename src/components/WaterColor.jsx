@@ -26,18 +26,18 @@ const WaterColor = () => {
 
     p5.setup = () => {
       p5.createCanvas(width, height, p5.WEBGL);
+      brush.load();
 
-      for (let j = 0; j < 4; j++) {
+      for (let j = 0; j < 2; j++) {
         x_values[j] = [];
         y_values[j] = [];
         active_states[j] = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
           x_values[j][i] = p5.random(width);
           y_values[j][i] = p5.random(height);
           active_states[j][i] = false;
         }
       }
-      brush.load();
     };
 
     p5.draw = () => {
@@ -45,13 +45,14 @@ const WaterColor = () => {
       p5.translate(-width / 2, -height / 2);
 
       for (let j = 0; j < x_values.length; j++) {
-        brush.fill(palette[j], 70);
+        brush.fill(palette[j], 30);
         brush.bleed(0.2);
-        brush.beginShape(0.9);
+        brush.beginShape(0);
         brush.noStroke();
         for (let i = 0; i < x_values[j].length; i++) {
           brush.vertex(x_values[j][i], y_values[j][i]);
         }
+        p5.randomSeed(12133);
         brush.endShape();
       }
 

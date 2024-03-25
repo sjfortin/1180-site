@@ -42,9 +42,7 @@ const artStyles = [
 function App() {
   inject();
 
-  const [selectedArtStyle, setSelectedArtStyle] = useState(
-    artStyles.filter((artStyle) => artStyle.style === "watercolor")[0].style
-  );
+  const [selectedArtStyle, setSelectedArtStyle] = useState("");
 
   return (
     <>
@@ -83,7 +81,7 @@ function App() {
           </li>
         ))}
       </ul>
-
+      )
       {selectedArtStyle === "rectangles" ? (
         <Rectangles />
       ) : selectedArtStyle === "circle" ? (
@@ -96,9 +94,9 @@ function App() {
         <TreeRing />
       ) : selectedArtStyle === "lines" ? (
         <Lines />
-      ) : (
+      ) : selectedArtStyle === "waves" ? (
         <Waves />
-      )}
+      ) : null}
     </>
   );
 }
