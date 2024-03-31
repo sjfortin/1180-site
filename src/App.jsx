@@ -8,35 +8,24 @@ import Flow from "./components/Flow";
 import TreeRing from "./components/TreeRing";
 import WaterColor from "./components/WaterColor";
 
+const ArtComponents = {
+  rectangles: Rectangles,
+  circle: Circle,
+  watercolor: WaterColor,
+  waves: Waves,
+  lines: Lines,
+  flow: Flow,
+  treering: TreeRing,
+};
+
 const artStyles = [
-  {
-    style: "watercolor",
-    name: "watercolor",
-  },
-  {
-    style: "rectangles",
-    name: "rectangles",
-  },
-  {
-    style: "circle",
-    name: "circle",
-  },
-  {
-    style: "waves",
-    name: "waves",
-  },
-  {
-    style: "lines",
-    name: "lines",
-  },
-  {
-    style: "flow",
-    name: "flow",
-  },
-  {
-    style: "treering",
-    name: "tree ring",
-  },
+  { style: "watercolor", name: "watercolor" },
+  { style: "rectangles", name: "rectangles" },
+  { style: "circle", name: "circle" },
+  { style: "waves", name: "waves" },
+  { style: "lines", name: "lines" },
+  { style: "flow", name: "flow" },
+  { style: "treering", name: "tree ring" },
 ];
 
 function App() {
@@ -44,9 +33,15 @@ function App() {
 
   const [selectedArtStyle, setSelectedArtStyle] = useState("");
 
+  // Function to render the selected art component
+  const renderArtComponent = () => {
+    const Component = ArtComponents[selectedArtStyle];
+    return Component ? <Component /> : null;
+  };
+
   return (
     <>
-      <div className="">
+      <div>
         <h1 className="px-4 mt-5 text-4xl md:text-6xl flex justify-center tracking-widest">
           Sam Fortin
         </h1>
@@ -69,10 +64,10 @@ function App() {
         {artStyles.map((artStyle) => (
           <li key={artStyle.style}>
             <button
-              className={`justify-center tracking-widest text-gray-400 hover:text-gray-900 px-2 py-1 border-dotted border-2 border-gray-400 hover:border-gray-900 text ${
+              className={`justify-center tracking-widest text-gray-400 hover:text-gray-900 px-2 py-1 border-dotted border-2 ${
                 artStyle.style === selectedArtStyle
                   ? "border-gray-900 text-gray-900"
-                  : ""
+                  : "border-gray-400"
               }`}
               onClick={() => setSelectedArtStyle(artStyle.style)}
             >
@@ -81,22 +76,7 @@ function App() {
           </li>
         ))}
       </ul>
-      )
-      {selectedArtStyle === "rectangles" ? (
-        <Rectangles />
-      ) : selectedArtStyle === "circle" ? (
-        <Circle />
-      ) : selectedArtStyle === "watercolor" ? (
-        <WaterColor />
-      ) : selectedArtStyle === "flow" ? (
-        <Flow />
-      ) : selectedArtStyle === "treering" ? (
-        <TreeRing />
-      ) : selectedArtStyle === "lines" ? (
-        <Lines />
-      ) : selectedArtStyle === "waves" ? (
-        <Waves />
-      ) : null}
+      {renderArtComponent()}
     </>
   );
 }
