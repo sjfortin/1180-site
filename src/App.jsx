@@ -55,7 +55,7 @@ function App() {
             linktr.ee
           </a>
         </div>
-        <h1 className="text-6xl inline-block bg-white px-2">Sam Fortin</h1>
+        <h1 className="text-6xl inline-block bg-white px-2 text-center">Sam Fortin</h1>
       </div>
       <ul className="flex gap-4 justify-center mb-7 flex-wrap">
         {artStyles.map((artStyle) => (

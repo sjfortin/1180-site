@@ -38,7 +38,7 @@ const WaterColor = () => {
       p5.createCanvas(canvasSize.width, canvasSize.height, p5.WEBGL);
       brush.load();
 
-      for (let j = 0; j < 4; j++) {
+      for (let j = 0; j < 3; j++) {
         x_values[j] = [];
         y_values[j] = [];
         active_states[j] = [];
