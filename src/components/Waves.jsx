@@ -3,7 +3,6 @@
 // http://cs.nyu.edu/~perlin/noise/
 // http://jsfiddle.net/aVSX7/light/
 import { useEffect, useRef } from "react";
-import { useMediaQuery } from "@uidotdev/usehooks";
 import ShapeButton from "./ShapeButton";
 
 const PerlinNoise = new (function () {
@@ -104,28 +103,23 @@ const PerlinNoise = new (function () {
 
 function Waves() {
   const canvasRef = useRef(null);
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
-  const isMediumDevice = useMediaQuery(
-    "only screen and (min-width : 769px) and (max-width : 992px)"
-  );
 
   const waveChange = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    const width = isSmallDevice ? 350 : isMediumDevice ? 600 : 900;
-    const height = isSmallDevice ? 500 : isMediumDevice ? 300 : 400;
-    context.canvas.width = width;
-    context.canvas.height = height;
 
-    context.clearRect(0, 0, width, height);
+    canvas.width = canvas.parentElement.offsetWidth;
+    canvas.height = 400;
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
     context.lineWidth = 4;
-    var marginX = 40;
+    var marginX = 0;
     var marginY = 40;
     var stepX = 4;
     var stepY = 8;
-    var maxX = (width - 2 * marginX) / stepX;
-    var maxY = (height - 2 * marginY) / stepY;
+    var maxX = (canvas.width - 2 * marginX) / stepX;
+    var maxY = (canvas.height - 2 * marginY) / stepY;
     var colors = ["#1A6DED", "#2C7CE6", "#145CBF"];
 
     var noise;
