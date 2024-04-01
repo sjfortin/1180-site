@@ -12,10 +12,12 @@ function Lines() {
     setColorPallete(
       colorPalletes[Math.floor(Math.random() * colorPalletes.length)].colors
     );
+
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    context.canvas.width = 900;
-    context.canvas.height = 400;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
     context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -41,18 +43,17 @@ function Lines() {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup function to remove event listener on unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []); // Empty array makes this effect run only on mount and unmount
+  }, []);
 
   return (
     <>
       <div className="text-center">
         <ShapeButton shapeName={"lines"} handleClick={drawLines} />
       </div>
-      <div className="my-6 flex justify-center items-center flex-wrap">
+      <div className="-z-50 flex justify-center items-center flex-wrap absolute top-0 left-0 w-full">
         <canvas ref={canvasRef} />
       </div>
     </>

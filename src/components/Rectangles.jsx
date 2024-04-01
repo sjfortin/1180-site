@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { getRandomPalette } from "../lib/colorPalletes";
-import { useMediaQuery } from "@uidotdev/usehooks";
 import ShapeButton from "./ShapeButton";
 
 function rand(min, max) {
@@ -9,64 +8,57 @@ function rand(min, max) {
 
 const Rectangles = () => {
   const canvasRef = useRef(null);
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
-  const isMediumDevice = useMediaQuery(
-    "only screen and (min-width : 769px) and (max-width : 992px)"
-  );
 
   const draw = () => {
-    const width = isSmallDevice ? 350 : isMediumDevice ? 600 : 900;
-    const height = isSmallDevice ? 500 : isMediumDevice ? 300 : 400;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const context = canvas.getContext("2d");
 
-    ctx.canvas.width = width;
-    ctx.canvas.height = height;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
     let pallette = getRandomPalette();
 
-    ctx.lineWidth = 2;
-    ctx.fillStyle = "#fff";
+    context.lineWidth = 4;
+    context.fillStyle = "#fff";
 
     for (var i = 0; i < 1000; i++) {
-      const startx = rand(-100, width + 100);
-      const starty = rand(-100, height + 100);
-      const rec_width = rand(width * 0.1, width * 0.025);
-      const rec_height = rand(height * 0.1, width * 0.025);
+      const startx = rand(-100, canvas.width + 100);
+      const starty = rand(-100, canvas.height + 100);
+      const rec_width = rand(canvas.width * 0.1, canvas.width * 0.025);
+      const rec_height = rand(canvas.height * 0.1, canvas.height * 0.025);
 
-      ctx.strokeStyle = pallette[Math.floor(Math.random() * pallette.length)];
-      ctx.beginPath();
-      ctx.fillRect(startx, starty, rec_width, rec_height);
+      context.strokeStyle =
+        pallette[Math.floor(Math.random() * pallette.length)];
+      context.beginPath();
+      context.fillRect(startx, starty, rec_width, rec_height);
 
-      ctx.moveTo(startx, starty);
-      ctx.lineTo(startx + rec_width, starty);
-      ctx.lineTo(startx + rec_width, starty + rec_height);
-      ctx.lineTo(startx, starty + rec_height);
-      ctx.lineTo(startx, starty);
-      ctx.stroke();
+      context.moveTo(startx, starty);
+      context.lineTo(startx + rec_width, starty);
+      context.lineTo(startx + rec_width, starty + rec_height);
+      context.lineTo(startx, starty + rec_height);
+      context.lineTo(startx, starty);
+      context.stroke();
     }
   };
 
   useEffect(() => {
-    window.addEventListener("resize", draw);
-    draw();
+    draw(); // Draw when the component mounts
 
-    // Cleanup function
+    const handleResize = () => draw();
+    window.addEventListener("resize", handleResize);
+
     return () => {
-      window.removeEventListener("resize", draw);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   return (
     <>
       <div className="text-center">
-        <ShapeButton
-          shapeName={"rectangles"}
-          handleClick={() => draw()}
-        />
+        <ShapeButton shapeName={"rectangles"} handleClick={draw} />
       </div>
-      <div className="my-6 flex justify-center items-center flex-wrap">
+      <div className="-z-50 flex justify-center items-center flex-wrap absolute top-0 left-0 w-full">
         <canvas ref={canvasRef}></canvas>
       </div>
     </>

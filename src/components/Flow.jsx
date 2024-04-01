@@ -1,20 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ReactP5Wrapper } from "@p5-wrapper/react";
 import { colorPalletes } from "../lib/colorPalletes";
 import ShapeButton from "./ShapeButton";
-import { useMediaQuery } from "@uidotdev/usehooks";
 
 const Flow = () => {
   const [sketchCount, setSketchCount] = useState(0);
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
-  const isMediumDevice = useMediaQuery(
-    "only screen and (min-width : 769px) and (max-width : 992px)"
-  );
+  const [canvasSize, setCanvasSize] = useState({ width: 900, height: 400 });
+
+  const updateCanvasSize = () => {
+    setCanvasSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  };
+
+  useEffect(() => {
+    updateCanvasSize();
+    window.addEventListener("resize", updateCanvasSize);
+
+    return () => {
+      window.removeEventListener("resize", updateCanvasSize);
+    };
+  }, []);
 
   const sketch = (p5) => {
-    const width = isSmallDevice ? 350 : isMediumDevice ? 600 : 900;
-    const height = isSmallDevice ? 500 : isMediumDevice ? 300 : 400;
-
     let inc = p5.random(0.01, 0.09);
     let scl = p5.random(5, 15);
     let cols, rows;
@@ -26,7 +35,8 @@ const Flow = () => {
       colorPalletes[Math.floor(Math.random() * colorPalletes.length)].colors;
 
     p5.setup = () => {
-      p5.createCanvas(width, height);
+      p5.createCanvas(canvasSize.width, canvasSize.height);
+
       cols = p5.floor(p5.width / scl);
       rows = p5.floor(p5.height / scl);
       fr = p5.createP("");
@@ -68,8 +78,8 @@ const Flow = () => {
           handleClick={() => setSketchCount(sketchCount + 1)}
         />
       </div>
-      <div className="my-6 flex justify-center items-center flex-wrap">
-        <ReactP5Wrapper sketch={sketch} />
+      <div className="-z-50 flex justify-center items-center flex-wrap absolute top-0 left-0 w-full">
+        <ReactP5Wrapper sketch={sketch} canvasSize={canvasSize} />
       </div>
     </>
   );

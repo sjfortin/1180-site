@@ -31,9 +31,8 @@ const artStyles = [
 function App() {
   inject();
 
-  const [selectedArtStyle, setSelectedArtStyle] = useState("");
+  const [selectedArtStyle, setSelectedArtStyle] = useState(""); 
 
-  // Function to render the selected art component
   const renderArtComponent = () => {
     const Component = ArtComponents[selectedArtStyle];
     return Component ? <Component /> : null;
@@ -41,30 +40,28 @@ function App() {
 
   return (
     <>
-      <div>
-        <h1 className="px-4 mt-5 text-4xl md:text-6xl flex justify-center tracking-widest">
-          Sam Fortin
-        </h1>
-        <div className="flex gap-3 justify-center my-3">
+      <div className="flex items-center gap-3 flex-col justify-between content-between my-6 px-6">
+        <div className="flex gap-3 justify-center">
           <a
-            className="text-gray-400 text-sm hover:text-gray-900"
+            className="text-gray-900 text-sm hover:text-gray-400 bg-white px-2 py-1"
             href="https://samfort.in/"
           >
             samfort.in
           </a>
           <a
-            className="text-gray-400 text-sm hover:text-gray-900"
+            className="text-gray-900 text-sm hover:text-gray-400 bg-white px-2 py-1"
             href="https://linktr.ee/sam.fortin"
           >
             linktr.ee
           </a>
         </div>
+        <h1 className="text-6xl inline-block bg-white px-2">Sam Fortin</h1>
       </div>
       <ul className="flex gap-4 justify-center mb-7 flex-wrap">
         {artStyles.map((artStyle) => (
           <li key={artStyle.style}>
             <button
-              className={`justify-center tracking-widest text-gray-400 hover:text-gray-900 px-2 py-1 border-dotted border-2 ${
+              className={`bg-white tracking-widest text-gray-400 hover:text-gray-900 px-2 py-1 border-dotted border-2 ${
                 artStyle.style === selectedArtStyle
                   ? "border-gray-900 text-gray-900"
                   : "border-gray-400"
