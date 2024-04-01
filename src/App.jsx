@@ -31,7 +31,7 @@ const artStyles = [
 function App() {
   inject();
 
-  const [selectedArtStyle, setSelectedArtStyle] = useState(""); 
+  const [selectedArtStyle, setSelectedArtStyle] = useState("");
 
   const renderArtComponent = () => {
     const Component = ArtComponents[selectedArtStyle];
@@ -40,39 +40,32 @@ function App() {
 
   return (
     <>
-      <div className="flex items-center gap-3 flex-col justify-between content-between my-6 px-6">
-        <div className="flex gap-3 justify-center">
+      <div className="flex items-center flex-col md:flex-row gap-3 justify-between content-between py-3 px-6 bg-white">
+        <h1 className="inline-block text-center">
           <a
-            className="text-gray-900 text-sm hover:text-gray-400 bg-white px-2 py-1"
+            className="text-gray-900 hover:text-gray-400"
             href="https://samfort.in/"
           >
-            samfort.in
+            sam fortin
           </a>
-          <a
-            className="text-gray-900 text-sm hover:text-gray-400 bg-white px-2 py-1"
-            href="https://linktr.ee/sam.fortin"
-          >
-            linktr.ee
-          </a>
-        </div>
-        <h1 className="text-6xl inline-block bg-white px-2 text-center">Sam Fortin</h1>
+        </h1>
+        <ul className="flex gap-2 justify-center flex-wrap">
+          {artStyles.map((artStyle) => (
+            <li key={artStyle.style}>
+              <button
+                className={`bg-white text-sm hover:bg-gray-100 px-2 py-1 border-dotted border-2 ${
+                  artStyle.style === selectedArtStyle
+                    ? "border-gray-900 bg-gray-100"
+                    : "border-gray-400"
+                }`}
+                onClick={() => setSelectedArtStyle(artStyle.style)}
+              >
+                {artStyle.name}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul className="flex gap-4 justify-center mb-7 flex-wrap">
-        {artStyles.map((artStyle) => (
-          <li key={artStyle.style}>
-            <button
-              className={`bg-white tracking-widest text-gray-400 hover:text-gray-900 px-2 py-1 border-dotted border-2 ${
-                artStyle.style === selectedArtStyle
-                  ? "border-gray-900 text-gray-900"
-                  : "border-gray-400"
-              }`}
-              onClick={() => setSelectedArtStyle(artStyle.style)}
-            >
-              {artStyle.name}
-            </button>
-          </li>
-        ))}
-      </ul>
       {renderArtComponent()}
     </>
   );
