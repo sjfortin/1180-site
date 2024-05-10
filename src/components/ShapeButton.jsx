@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 
 const ShapeButton = ({ shapeName, handleClick }) => {
   return (
-    <div className="absolute bottom-3 right-3">
+    <div className="absolute bottom-3 left-3">
       <button
-        className="w-24 h-24 rounded-full text-gray-100 px-2 py-1 bg-gray-900 hover:bg-gray-800"
+        className="w-32 h-32 rounded-full text-gray-100 px-2 py-1 bg-gray-900 hover:bg-gray-700"
         onClick={handleClick}
         aria-label={`Change ${shapeName}`}
       >

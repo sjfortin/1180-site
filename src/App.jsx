@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { inject } from "@vercel/analytics";
 import Circle from "./components/Circle";
 import Rectangles from "./components/Rectangles";
@@ -19,12 +19,12 @@ const ArtComponents = {
 };
 
 const artStyles = [
+  { style: "flow", name: "flow" },
   { style: "watercolor", name: "watercolor" },
   { style: "rectangles", name: "rectangles" },
   { style: "circle", name: "circle" },
   { style: "waves", name: "waves" },
   { style: "lines", name: "lines" },
-  { style: "flow", name: "flow" },
   { style: "treering", name: "tree ring" },
 ];
 
@@ -43,17 +43,17 @@ function App() {
       <div className="flex items-center flex-col md:flex-row gap-3 justify-between content-between py-3 px-6 bg-white">
         <h1 className="inline-block text-center">
           <a
-            className="text-gray-900 hover:text-gray-400"
+            className="text-gray-900 hover:text-gray-400 text-xl tracking-widest"
             href="https://samfort.in/"
           >
-            sam fortin
+            sf
           </a>
         </h1>
         <ul className="flex gap-2 justify-center flex-wrap">
           {artStyles.map((artStyle) => (
             <li key={artStyle.style}>
               <button
-                className={`bg-white text-sm hover:bg-gray-100 px-2 py-1 border-dotted border-2 ${
+                className={`bg-white text-sm hover:bg-gray-100 px-3 py-1 border-dotted border-2 ${
                   artStyle.style === selectedArtStyle
                     ? "border-gray-900 bg-gray-100"
                     : "border-gray-400"
